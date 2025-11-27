@@ -3,70 +3,1185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هبد.ME | الراعي الرسمي لهبد الامتحانات</title>
-
-    <!-- Cairo font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <title>habd.me - الراعي الرسمي لهبد الامتحانات 🎭</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
         body {
-            font-family: "Cairo", sans-serif;
-            margin: 0;
-            background: #f2f4f7;
-            color: #222;
-            padding: 30px;
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
         }
 
-        h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #111;
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        .box {
-            background: #fff;
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 15s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        h4 {
-            margin: 0;
-            margin-top: 15px;
-            font-size: 20px;
-            color: #444;
-        }
-
-        h5 {
-            margin: 5px 0 15px;
-            font-size: 18px;
-            color: #666;
-        }
-
-        /* تأثير حرف F */
-        .brand::first-letter {
-            opacity: 0.25;        /* حرف منخفض الشفافية لكن واضح */
+        .logo {
+            font-size: 2rem;
             font-weight: 900;
-            font-size: 1.4em;
-            letter-spacing: -2px;
-            display: inline-block;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 10;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .sponsor-badge {
+            background: linear-gradient(45deg, var(--warning), #e17055);
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 10px 40px rgba(253, 203, 110, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(253, 203, 110, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 50px rgba(253, 203, 110, 0.5);
+            }
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 0 50px rgba(108, 92, 231, 0.5);
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(45deg, var(--accent), var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--light);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(108, 92, 231, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        /* Stats Section */
+        .stats {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 60px 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--warning), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--light);
+            margin-top: 10px;
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .feature-desc {
+            color: var(--light);
+            line-height: 1.8;
+        }
+
+        /* Habd Generator */
+        .generator {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .generator-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .generator-output {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            font-size: 1.3rem;
+            line-height: 2;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255,255,255,0.2);
+        }
+
+        .generator-output.typing {
+            animation: borderGlow 1s infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(255,255,255,0.2); }
+            50% { border-color: var(--accent); }
+        }
+
+        /* Tips Section */
+        .tips {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+        }
+
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .tip-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-10px);
+            border-color: var(--success);
+        }
+
+        .tip-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .tip-content h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .tip-content p {
+            color: var(--light);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 25px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            color: white;
+        }
+
+        .author-info span {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Easter Egg Section */
+        .easter-egg {
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .secret-btn {
+            background: linear-gradient(45deg, var(--danger), #e17055);
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+            animation: shake 5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 90%, 100% { transform: rotate(0deg); }
+            92%, 96% { transform: rotate(-5deg); }
+            94%, 98% { transform: rotate(5deg); }
+        }
+
+        .secret-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 50px rgba(214, 48, 49, 0.5);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            border: 2px solid var(--accent);
+            animation: modalPop 0.5s ease;
+        }
+
+        @keyframes modalPop {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .modal-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--light);
+            margin-bottom: 30px;
+        }
+
+        .close-modal {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: var(--secondary);
+        }
+
+        /* Konami Code Effect */
+        .konami-active {
+            animation: rainbow 2s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-text {
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Click Effect */
+        .click-effect {
+            position: fixed;
+            pointer-events: none;
+            font-size: 2rem;
+            animation: clickPop 0.5s ease forwards;
+            z-index: 9999;
+        }
+
+        @keyframes clickPop {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2) translateY(-50px);
+                opacity: 0;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
 
-    <h1>الرسائل المتروكة</h1>
+    <!-- Confetti Container -->
+    <div class="confetti" id="confetti"></div>
 
-    <div class="box">
-        <h4>Yousef - The dev</h4>
-        <h5>🐈 Moew!</h5>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" onclick="logoClick()">habd.me 🎭</div>
+        <nav class="nav-links">
+            <a href="#features" class="nav-link">المميزات</a>
+            <a href="#generator" class="nav-link">مولد الهبد</a>
+            <a href="#tips" class="nav-link">نصائح ذهبية</a>
+            <a href="#testimonials" class="nav-link">قصص نجاح</a>
+        </nav>
+    </header>
 
-        <h4>Eyad -</h4>
-        <h5 class="brand">School</h5>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="sponsor-badge">⭐ الراعي الرسمي لهبد الامتحانات ⭐</div>
+        <h1 class="hero-title">
+            مرحباً بك في <span class="highlight">habd.me</span>
+        </h1>
+         <h3>Yousef - Dev</h3>
+        <p class="hero-subtitle">
+            المنصة الأولى عربياً لتحويل اللا شيء إلى إجابة مقنعة... نوعاً ما 😅
+        </p>
+        <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="startHabd()">ابدأ الهبد الآن 🚀</button>
+            <button class="btn btn-secondary" onclick="learnHabd()">تعلم فن الهبد 📚</button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-card" onclick="incrementStat(this)">
+            <div class="stat-number" id="habdCount">1,337,420</div>
+            <div class="stat-label">هبدة ناجحة</div>
+        </div>
+        <div class="stat-card" onclick="incrementStat(this)">
+            <div class="stat-number">69%</div>
+            <div class="stat-label">نسبة النجاة من الرسوب</div>
+        </div>
+        <div class="stat-card" onclick="incrementStat(this)">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">احتمالات الهبد</div>
+        </div>
+        <div class="stat-card" onclick="incrementStat(this)">
+            <div class="stat-number">0</div>
+            <div class="stat-label">ضمانات 😂</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">🎯 مميزات منصتنا</h2>
+        <div class="features-grid">
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">ذكاء اصطناعي للهبد</h3>
+                <p class="feature-desc">خوارزميات متقدمة تحول أي سؤال لا تعرف إجابته إلى فقرة طويلة مليئة بالكلام الفارغ المقنع</p>
+            </div>
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">📝</div>
+                <h3 class="feature-title">قاموس المصطلحات</h3>
+                <p class="feature-desc">أكبر قاعدة بيانات للمصطلحات العلمية التي تبدو مهمة لكنها لا تعني شيئاً في السياق</p>
+            </div>
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">🎭</div>
+                <h3 class="feature-title">محاكي الثقة</h3>
+                <p class="feature-desc">تدريب على الكتابة بثقة حتى لو كنت لا تعرف حرفاً واحداً من الإجابة</p>
+            </div>
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">🔮</div>
+                <h3 class="feature-title">التنبؤ بالأسئلة</h3>
+                <p class="feature-desc">نظام يخمن الأسئلة بنفس دقة تخمينك للإجابات (يعني تقريباً صفر)</p>
+            </div>
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">🎲</div>
+                <h3 class="feature-title">مولد الاختيارات</h3>
+                <p class="feature-desc">عندما تكون كل الاختيارات تبدو صحيحة، نساعدك تختار الأقل خطأً</p>
+            </div>
+            <div class="feature-card" onclick="featureClick(this)">
+                <div class="feature-icon">🆘</div>
+                <h3 class="feature-title">الدعم النفسي</h3>
+                <p class="feature-desc">خدمة دعم 24/7 للطلاب المحتارين في منتصف الامتحان</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habd Generator -->
+    <section class="generator" id="generator">
+        <h2 class="section-title">⚡ مولد الهبد الفوري</h2>
+        <div class="generator-box">
+            <p style="color: var(--light); margin-bottom: 20px;">اضغط الزر واحصل على هبد جاهز للاستخدام!</p>
+            <div class="generator-output" id="habdOutput">
+                اضغط الزر لتوليد هبد احترافي... 🎰
+            </div>
+            <button class="btn btn-primary" onclick="generateHabd()">🎲 ولّد هبد جديد</button>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips" id="tips">
+        <h2 class="section-title">💡 نصائح ذهبية للهبد الناجح</h2>
+        <div class="tips-container">
+            <div class="tip-card" onclick="tipClick(this)">
+                <div class="tip-number">1</div>
+                <div class="tip-content">
+                    <h3>الثقة هي المفتاح 🔑</h3>
+                    <p>اكتب بثقة حتى لو كنت تكتب اسمك بالخطأ. المصحح يحترم الجرأة!</p>
+                </div>
+            </div>
+            <div class="tip-card" onclick="tipClick(this)">
+                <div class="tip-number">2</div>
+                <div class="tip-content">
+                    <h3>الكمية مهمة 📏</h3>
+                    <p>إذا لم تعرف الإجابة، اكتب كل ما تعرفه. ربما تصيب نقطة بالصدفة!</p>
+                </div>
+            </div>
+            <div class="tip-card" onclick="tipClick(this)">
+                <div class="tip-number">3</div>
+                <div class="tip-content">
+                    <h3>المقدمات الطويلة ✨</h3>
+                    <p>"منذ فجر التاريخ والإنسان يتساءل..." مقدمة تناسب أي سؤال!</p>
+                </div>
+            </div>
+            <div class="tip-card" onclick="tipClick(this)">
+                <div class="tip-number">4</div>
+                <div class="tip-content">
+                    <h3>استخدم "بشكل عام" 🌍</h3>
+                    <p>تضيف هذه العبارة غموضاً استراتيجياً يصعب تكذيبه!</p>
+                </div>
+            </div>
+            <div class="tip-card" onclick="tipClick(this)">
+                <div class="tip-number">5</div>
+                <div class="tip-content">
+                    <h3>الرسومات التوضيحية 🎨</h3>
+                    <p>ارسم أي شكل وسمّه "رسم توضيحي" - يبدو علمياً جداً!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">🌟 قصص نجاح (مزعومة)</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "كتبت 3 صفحات عن موضوع لا أعرف عنه شيئاً، وحصلت على نصف الدرجة! شكراً habd.me"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👨‍🎓</div>
+                    <div class="author-info">
+                        <h4>أحمد المهبّد</h4>
+                        <span>طالب طب سنة ؟؟</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "الدكتور كتب على ورقتي 'إجابة مبدعة' بدل صفر. هذا تقدم!"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">👩‍🎓</div>
+                    <div class="author-info">
+                        <h4>سارة الهبّادة</h4>
+                        <span>طالبة هندسة (سابقاً)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "استخدمت تقنية المقدمة الطويلة، انتهى الوقت قبل ما أبدأ الإجابة. 10/10 أنصح!"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">🧔</div>
+                    <div class="author-info">
+                        <h4>خالد التمويهي</h4>
+                        <span>خبير هبد معتمد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Easter Egg -->
+    <section class="easter-egg">
+        <h2 class="section-title">🔴 زر لا تضغطه!</h2>
+        <button class="secret-btn" onclick="secretButton()">
+            ⚠️ خطير جداً - لا تضغط! ⚠️
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            تنويه: هذا الموقع للترفيه فقط! ذاكر جيداً ولا تعتمد على الهبد 😉📚
+        </p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">سياسة الهبد</a>
+            <a href="#" class="footer-link">شروط عدم الضمان</a>
+            <a href="#" class="footer-link">اتصل بنا (لا ترد)</a>
+            <a href="#" class="footer-link">وظائف (لا توجد)</a>
+        </div>
+        <p class="copyright">
+            © 2024 habd.me - كل الحقوق محفوظة (لا، مش فعلاً) 🎭
+            <br>
+            <span style="font-size: 0.8rem; opacity: 0.5;">جرب الكود السري: ↑ ↑ ↓ ↓ ← → ← → B A</span>
+        </p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon">🎉</div>
+            <h2 class="modal-title" id="modalTitle">عنوان</h2>
+            <p class="modal-text" id="modalText">نص</p>
+            <button class="close-modal" onclick="closeModal()">فهمت! 👍</button>
+        </div>
     </div>
 
+    <script>
+        // Habd Phrases Database
+const habdPhrases = [
+    "بما أن السؤال غامض، فالإجابة هي (ج) لأنها شكلها ابن ناس.",
+    "اكتب المقدمة والخاتمة واي حاجة من أغاني عمرو دياب في النص، الدكتور مش هيقرا.",
+    "استخدم نظرية 'حادي بادي' لاختيار الإجابة الصحيحة.",
+    "بما أن س لا تساوي ص، إذاً الحل... استنى إيه؟",
+    "يا عم الموضوع كبير قوي، خلّينا نخش على الفلوس على طول.",
+    "لو الوقت ذهب، فأنا ضيّعته في التفكير في الوقت.",
+    "لو عندك مشكلة، حطها في جوجل — ولو مانجحتش يبقى المشكلة محترمة.",
+    "أنا مش بطّيّخ، أنا بطّخ بفن واحتراف.",
+    "قوانين الفيزياء بتقول 'الكرسي دايمًا بيبقى مشغول لما تحب تقعد'.",
+    "الريمووت: أون — التلفزيون: في عطلة شخصية.",
+    "لو الحب مسابقة، فأنا لسه في مرحلة التسجيل.",
+    "أصدقاء النجاح: ناس كتيرة — أصدقاء الأكل: أكتر.",
+    "أنا قلبي طيب، بس البطاقة الائتمانية مش بتتعاون.",
+    "خطة اليوم: أصحى بكرة — الخطة البديلة: أصحى بكرة بعد شوية.",
+    "لو حصلت مصيبة وماحدش سأل، أصلًا مش مصيبة رسميًا.",
+    "الواي فاي وقع، فجأة بقيت فاهم في الحياة أكتر.",
+    "مين يقول إن النوم هدر؟ النوم استثمار طويل الأجل.",
+    "لو حد قالك 'أنا صريح'، خد بالك.. غالبًا هيبدأ بالفضايح بعدين.",
+    "أنا مش بخطط، أنا ببتكر مبررات للكسل.",
+    "النهاردة يوم مثالي لعالم موازي — في عالمنا عندي شغل.",
+    "لو الدنيا لعبة، فأنا تأخرت على آخر مرحلة.",
+    "اللي يقول 'بسيطة' ما جربش يسأل صاحبه عن سؤال الامتحان.",
+    "أحيانًا بحس إن الفنجان بيحسّسني إنّي مش بشرب كفاية من الحياة.",
+    "المدرسة علمتني حاجات مهمة: إزاي أؤجل المذاكرة بإتقان.",
+    "لو الشاي بيحلي بالسكر، فالحياة ممكن تتحسّن بكلمة طيبة.",
+    "مش مشكلة إنك غلطان — المشكلة إنك تعمل سيلفي بعد الغلطة.",
+    "لو سمعت حد يقول 'مش مهم' استعد — هو بيبدأ يمسح دليل الجريمة.",
+    "الأمل موجود.. بس بيشتغل بنظام النوبتج.",
+    "لو عايز تعرف مستوى الذكاء عند حد، اديله ريموت وشوف هيعمل إيه.",
+    "اختر (أ) و (ب) معاً لإرباك العدو."
+];
+
+
+        const emojis = ['📚', '✏️', '📝', '🎓', '🤔', '💭', '🧠', '📖', '✨', '🎭', '😅', '🆘', '🎲', '🔮'];
+
+        // Initialize floating elements
+        function initFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            for (let i = 0; i < 20; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.animationDelay = Math.random() * 15 + 's';
+                emoji.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(emoji);
+            }
+        }
+
+        // Generate Habd
+        function generateHabd() {
+            const output = document.getElementById('habdOutput');
+            output.classList.add('typing');
+            output.textContent = '🔄 جاري توليد الهبد...';
+            
+            setTimeout(() => {
+                const randomPhrase = habdPhrases[Math.floor(Math.random() * habdPhrases.length)];
+                output.textContent = randomPhrase;
+                output.classList.remove('typing');
+                createConfetti();
+            }, 1500);
+        }
+
+        // Create Confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#6c5ce7', '#a29bfe', '#fd79a8', '#fdcb6e', '#00b894'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                container.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        // Logo Click Easter Egg
+        let logoClicks = 0;
+        function logoClick() {
+            logoClicks++;
+            if (logoClicks >= 5) {
+                document.body.classList.toggle('konami-active');
+                logoClicks = 0;
+                showModal('🌈', 'وضع قوس القزح!', 'لقد فتحت وضع الألوان السحري! اضغط مرة أخرى لإيقافه.');
+            }
+        }
+
+        // Start Habd
+        function startHabd() {
+            showModal('🚀', 'جاهز للهبد؟', 'تذكر: الهبد فن وليس علم! اكتب بثقة، استخدم كلمات كبيرة، ولا تنسى المقدمات الطويلة. بالتوفيق! 🍀');
+        }
+
+        // Learn Habd
+        function learnHabd() {
+            showModal('📚', 'درس مجاني في الهبد', 'الخطوة 1: لا تترك الورقة فارغة\nالخطوة 2: اكتب أي شيء\nالخطوة 3: اكتبه بخط واثق\nالخطوة 4: ادعي أنك تعرف\n\nمبروك! أنت الآن خبير هبد! 🎓');
+        }
+
+        // Increment Stat
+        function incrementStat(element) {
+            const numberEl = element.querySelector('.stat-number');
+            let text = numberEl.textContent;
+            
+            if (text.includes(',')) {
+                let num = parseInt(text.replace(/,/g, ''));
+                num += Math.floor(Math.random() * 100);
+                numberEl.textContent = num.toLocaleString();
+            }
+            
+            element.style.transform = 'scale(1.1)';
+            setTimeout(() => element.style.transform = '', 300);
+            
+            createClickEffect(event.clientX, event.clientY);
+        }
+
+        // Feature Click
+        function featureClick(element) {
+            element.classList.add('glitch');
+            setTimeout(() => element.classList.remove('glitch'), 300);
+        }
+
+        // Tip Click
+        function tipClick(element) {
+            element.style.background = 'rgba(0, 184, 148, 0.2)';
+            setTimeout(() => element.style.background = '', 500);
+        }
+
+        // Secret Button
+        let secretClicks = 0;
+        function secretButton() {
+            secretClicks++;
+            
+            if (secretClicks === 1) {
+                showModal('⚠️', 'قلنا لا تضغط!', 'طيب ماشي، اضغط مرة ثانية لو جريء...');
+            } else if (secretClicks === 2) {
+                showModal('😈', 'ما زلت مصر؟', 'آخر فرصة... اضغط مرة أخرى على مسؤوليتك!');
+            } else if (secretClicks === 3) {
+                createConfetti();
+                showModal('🎉', 'مبروووك!', 'لقد فتحت السر الأعظم: المذاكرة الحقيقية أفضل من الهبد! 😂📚\n\nروح ذاكر أحسنلك!');
+                secretClicks = 0;
+            }
+        }
+
+        // Show Modal
+        function showModal(icon, title, text) {
+            document.getElementById('modalIcon').textContent = icon;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Click Effect
+        function createClickEffect(x, y) {
+            const effect = document.createElement('div');
+            effect.className = 'click-effect';
+            effect.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            effect.style.left = x + 'px';
+            effect.style.top = y + 'px';
+            document.body.appendChild(effect);
+            setTimeout(() => effect.remove(), 500);
+        }
+
+        // Konami Code
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    konamiIndex = 0;
+                    activateKonamiCode();
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        function activateKonamiCode() {
+            document.body.classList.add('konami-active');
+            createConfetti();
+            showModal('🎮', 'كود كونامي!', 'لقد اكتشفت السر! أنت جيمر حقيقي! 🕹️\n\nللأسف هذا لن يساعدك في الامتحان 😂');
+            
+            setTimeout(() => {
+                document.body.classList.remove('konami-active');
+            }, 10000);
+        }
+
+        // Click anywhere for emoji
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON' && !e.target.classList.contains('stat-card')) {
+                // Small chance for random emoji
+                if (Math.random() > 0.8) {
+                    createClickEffect(e.clientX, e.clientY);
+                }
+            }
+        });
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        initFloatingElements();
+
+        // Console Easter Egg
+        console.log('%c🎭 habd.me', 'font-size: 50px; font-weight: bold; color: #6c5ce7;');
+        console.log('%cالراعي الرسمي لهبد الامتحانات!', 'font-size: 20px; color: #fd79a8;');
+        console.log('%cتنويه: روح ذاكر بدل ما تقرأ الكونسول 😂', 'font-size: 14px; color: #00b894;');
+    </script>
 </body>
 </html>
