@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Korasty AI — مساعد التعلم الذكي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/components.css">
+  
+  <!-- jsMind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.8.5/style/jsmind.css">
+</head>
+<body>
+  <div class="scene" role="application" aria-label="Korasty AI Learning Platform">
+    
+    <!-- Header Bar -->
+    <header class="header-bar">
+      <div class="logo">
+        <span class="logo-icon">🎓</span>
+        <span class="logo-text">Korasty AI</span>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn" id="settingsBtn" title="الإعدادات">⚙️</button>
+        <button class="header-btn" id="helpBtn" title="المساعدة">❓</button>
+        <div class="user-avatar" id="userAvatar">م</div>
+      </div>
+    </header>
+
+    <div class="workspace">
+
+      <!-- LEFT PANEL: Sources -->
+      <aside class="panel left" id="leftPanel">
+        <div class="panel-header">
+          <h1>المصادر</h1>
+          <button class="icon-btn" id="addSourceBtn" title="إضافة مصدر">+</button>
+        </div>
+        
+        <button class="add-btn primary" id="uploadSourcesBtn">
+          <span class="btn-icon">📁</span>
+          <span>إضافة مصادر</span>
+        </button>
+
+        <div class="hint-card">
+          <div class="hint-icon">🔬</div>
+          <div class="hint-content">
+            <strong>جرب البحث العميق</strong>
+            <p>للحصول على تقرير شامل ومصادر جديدة!</p>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="ابحث في المصادر..." />
+          <button class="search-btn" id="searchBtn">🔍</button>
+        </div>
+
+        <div class="source-list" id="sourceList" aria-live="polite">
+          <div class="empty-state">
+            <span class="empty-icon">📚</span>
+            <p>لا توجد مصادر بعد</p>
+          </div>
+        </div>
+
+        <div class="supported-formats">
+          <p>الصيغ المدعومة:</p>
+          <div class="format-tags">
+            <span class="format-tag">PDF</span>
+            <span class="format-tag">TXT</span>
+            <span class="format-tag">MD</span>
+            <span class="format-tag">MP3</span>
+            <span class="format-tag">صور</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER PANEL: Main Content / Chat -->
+      <main class="panel center" id="centerPanel">
+        
+        <!-- Initial Upload State -->
+        <div class="center-cta" id="centerCta">
+          <div class="cta-icon" id="uploadIcon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <h2>أضف مصدراً للبدء</h2>
+          <p class="cta-subtitle">ارفع ملفاتك التعليمية وابدأ التعلم مع المعلم الذكي</p>
+          <button class="upload-btn" id="mainUploadBtn">
+            <span>📤</span> رفع ملف
+          </button>
+          <div class="drop-hint">أو اسحب الملفات وأفلتها هنا</div>
+        </div>
+
+        <!-- Chat Interface (hidden initially) -->
+        <div class="chat-container" id="chatContainer" style="display: none;">
+          <div class="chat-header">
+            <div class="teacher-avatar">👨‍🏫</div>
+            <div class="teacher-info">
+              <span class="teacher-name">المعلم الذكي</span>
+              <span class="teacher-status">جاهز للمساعدة</span>
+            </div>
+            <div class="chat-actions">
+              <button class="chat-action-btn" id="clearChatBtn" title="مسح المحادثة">🗑️</button>
+              <button class="chat-action-btn" id="exportChatBtn" title="تصدير المحادثة">📋</button>
+            </div>
+          </div>
+          
+          <div class="chat-messages" id="chatMessages">
+            <div class="message assistant">
+              <div class="message-avatar">👨‍🏫</div>
+              <div class="message-content">
+                <p>مرحباً! أنا المعلم الذكي. يمكنني مساعدتك في فهم المواد التعليمية التي رفعتها. اسألني أي سؤال!</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-input-container">
+            <div class="chat-suggestions" id="chatSuggestions">
+              <button class="suggestion-chip">اشرح لي الفكرة الرئيسية</button>
+              <button class="suggestion-chip">لخص المحتوى</button>
+              <button class="suggestion-chip">أعطني أمثلة</button>
+            </div>
+            <div class="chat-input-wrapper">
+              <textarea id="chatInput" placeholder="اكتب سؤالك هنا..." rows="1"></textarea>
+              <button class="send-btn" id="sendBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dropzone Overlay -->
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-content">
+            <span class="dropzone-icon">📥</span>
+            <p>أفلت الملفات هنا</p>
+          </div>
+        </div>
+
+        <!-- Panel Footer -->
+        <div class="panel-footer">
+          <div class="footer-info" id="footerInfo">ارفع مصدراً للبدء</div>
+          <div class="source-count" id="sourceCount">0 مصادر</div>
+        </div>
+      </main>
+
+      <!-- RIGHT PANEL: Studio -->
+      <aside class="panel right" id="rightPanel">
+        <div class="panel-header">
+          <h1>الاستوديو</h1>
+          <span class="badge">جديد</span>
+        </div>
+
+        <p class="studio-description">إنشاء مخرجات تعليمية بالعربية باستخدام الذكاء الاصطناعي</p>
+
+        <div class="studio-grid" id="studioGrid">
+          <button class="studio-btn" data-tool="audio" disabled>
+            <span class="studio-icon">🎧</span>
+            <span class="studio-label">ملخص صوتي</span>
+            <span class="studio-status">Audio Overview</span>
+          </button>
+          <button class="studio-btn" data-tool="video" disabled>
+            <span class="studio-icon">🎬</span>
+            <span class="studio-label">ملخص فيديو</span>
+            <span class="studio-status">Video Overview</span>
+          </button>
+          <button class="studio-btn" data-tool="mindmap" disabled>
+            <span class="studio-icon">🧠</span>
+            <span class="studio-label">خريطة ذهنية</span>
+            <span class="studio-status">Mind Map</span>
+          </button>
+          <button class="studio-btn" data-tool="report" disabled>
+            <span class="studio-icon">📄</span>
+            <span class="studio-label">تقرير</span>
+            <span class="studio-status">Report</span>
+          </button>
+          <button class="studio-btn" data-tool="flashcards" disabled>
+            <span class="studio-icon">🃏</span>
+            <span class="studio-label">بطاقات تعليمية</span>
+            <span class="studio-status">Flashcards</span>
+          </button>
+          <button class="studio-btn" data-tool="quiz" disabled>
+            <span class="studio-icon">❓</span>
+            <span class="studio-label">اختبار</span>
+            <span class="studio-status">Quiz</span>
+          </button>
+          <button class="studio-btn" data-tool="infographic" disabled>
+            <span class="studio-icon">📊</span>
+            <span class="studio-label">إنفوجرافيك</span>
+            <span class="studio-status">Infographic</span>
+          </button>
+          <button class="studio-btn wide" data-tool="slides" disabled>
+            <span class="studio-icon">📽️</span>
+            <span class="studio-label">عرض تقديمي</span>
+            <span class="studio-status">Slide Deck</span>
+          </button>
+        </div>
+
+        <div class="studio-outputs" id="studioOutputs">
+          <h3>المخرجات المحفوظة</h3>
+          <div class="outputs-list" id="outputsList">
+            <div class="empty-state small">
+              <span class="empty-icon">📦</span>
+              <p>لا توجد مخرجات بعد</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="generation-options" id="generationOptions" style="display: none;">
+          <h3>خيارات الإنشاء</h3>
+          <div class="option-group">
+            <label>الطول</label>
+            <select id="lengthOption">
+              <option value="short">قصير</option>
+              <option value="medium" selected>متوسط</option>
+              <option value="long">طويل</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>المستوى</label>
+            <select id="levelOption">
+              <option value="beginner">مبتدئ</option>
+              <option value="intermediate" selected>متوسط</option>
+              <option value="advanced">متقدم</option>
+            </select>
+          </div>
+          <div class="option-group">
+            <label>الأسلوب</label>
+            <select id="styleOption">
+              <option value="formal">رسمي</option>
+              <option value="conversational" selected>محادثة</option>
+              <option value="academic">أكاديمي</option>
+            </select>
+          </div>
+          <button class="generate-btn" id="generateBtn">إنشاء</button>
+        </div>
+
+        <div class="panel-footer">
+          <button class="add-note-btn" id="addNoteBtn">+ إضافة ملاحظة</button>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Hidden file input -->
+  <input type="file" id="fileInput" style="display:none" multiple 
+    accept=".pdf,.txt,.md,.mp3,.wav,.ogg,.avif,.bmp,.gif,.ico,.jp2,.png,.webp,.tif,.tiff,.heic,.heif,.jpeg,.jpg,.jpe" />
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p id="loadingText">جاري المعالجة...</p>
+    </div>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Settings Modal -->
+  <div class="modal" id="settingsModal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>الإعدادات</h2>
+        <button class="modal-close" id="closeSettingsBtn">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-group">
+          <label>مفتاح Google AI Studio API</label>
+          <input type="password" id="apiKeyInput" placeholder="أدخل مفتاح API الخاص بك" />
+          <p class="setting-hint">احصل على مفتاح API من <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
+        </div>
+        <div class="setting-group">
+          <label>رابط الخادم الخلفي (Backend URL)</label>
+          <input type="text" id="backendUrlInput" placeholder="https://yourusername.pythonanywhere.com" />
+          <p class="setting-hint">أدخل رابط الخادم على PythonAnywhere</p>
+        </div>
+        <div class="setting-group">
+          <label>اللغة الافتراضية للمخرجات</label>
+          <select id="outputLanguage">
+            <option value="ar" selected>العربية</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="citationsEnabled" checked />
+            تضمين الاستشهادات في الإجابات
+          </label>
+        </div>
+        <button class="save-btn" id="saveSettingsBtn">حفظ الإعدادات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generation Progress Modal -->
+  <div class="modal" id="progressModal" style="display: none;">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <h2 id="progressTitle">جاري الإنشاء...</h2>
+      </div>
+      <div class="modal-body">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p id="progressStatus">جاري التحليل...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- jsMind Library -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/jsmind/js/jsmind.js"></script>
+  
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/fileHandler.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/studio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هبد.ME | الراعي الرسمي لهبد الامتحانات</title>
+
+    <!-- Cairo font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Cairo", sans-serif;
+            margin: 0;
+            background: #f2f4f7;
+            color: #222;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .box {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            max-width: 500px;
+        }
+
+        h4 {
+            margin: 0;
+            margin-top: 15px;
+            font-size: 20px;
+            color: #444;
+        }
+
+        h5 {
+            margin: 5px 0 15px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* تأثير حرف F */
+        .brand::first-letter {
+            opacity: 0.25;        /* حرف منخفض الشفافية لكن واضح */
+            font-weight: 900;
+            font-size: 1.4em;
+            letter-spacing: -2px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>الرسائل المتروكة</h1>
+
+    <div class="box">
+        <h4>Yousef - The dev</h4>
+        <h5>🐈 Moew!</h5>
+
+        <h4>Eyad -</h4>
+        <h5 class="brand">FSchool</h5>
+    </div>
+
+</body>
+</html>
