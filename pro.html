@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كراستي AI Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            --gradient-2: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-3: linear-gradient(135deg, #06b6d4 0%, #10b981 100%);
+            --glow: 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--darker);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .greeting {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--light);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* AI Models Section */
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            background: var(--gradient-2);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .model-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .model-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .model-card .badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Features Section */
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-block {
+            background: var(--gradient-2);
+            border-radius: 32px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-block::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+
+        .feature-block h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-block p {
+            font-size: 1.1rem;
+            color: var(--light);
+            position: relative;
+            z-index: 1;
+            line-height: 2;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .feature-item i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .feature-item span {
+            font-weight: 600;
+        }
+
+        /* Transformation Cards */
+        .transform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .transform-card {
+            background: var(--gradient-2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .transform-card:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .transform-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .transform-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* Fun Section */
+        .fun-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 32px;
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .fun-section h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--warning);
+        }
+
+        .fun-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .fun-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 20px;
+            border: 2px solid var(--warning);
+            transition: all 0.3s ease;
+        }
+
+        .fun-option:hover {
+            background: rgba(245, 158, 11, 0.2);
+            transform: rotate(-3deg) scale(1.05);
+        }
+
+        .fun-option i {
+            font-size: 3rem;
+            color: var(--warning);
+        }
+
+        .fun-option span {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Teachers Section */
+        .teachers-section {
+            background: var(--gradient-2);
+            border-radius: 32px;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 4rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .teachers-section h3 {
+            font-size: 2rem;
+            color: var(--success);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .teacher-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .teacher-benefit {
+            padding: 2rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 20px;
+            border-right: 4px solid var(--success);
+        }
+
+        .teacher-benefit h4 {
+            font-size: 1.3rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teacher-benefit p {
+            color: var(--light);
+            line-height: 1.8;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 900px;
+            margin: 4rem auto;
+        }
+
+        .faq-item {
+            background: var(--gradient-2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .faq-question {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question i {
+            color: var(--warning);
+        }
+
+        .faq-answer {
+            color: var(--light);
+            line-height: 2;
+            padding-right: 2rem;
+        }
+
+        /* Science Section */
+        .science-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+        }
+
+        .science-card {
+            background: var(--gradient-2);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .science-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-1);
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .science-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .science-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .science-card h5 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .science-card ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .science-card li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .science-card li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .science-card .highlight {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            border-right: 4px solid var(--success);
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background: var(--gradient-1);
+            border-radius: 32px;
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .summary-section h3 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-points {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .summary-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-point i {
+            font-size: 3rem;
+        }
+
+        .summary-point span {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .goal-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .goal-section p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .goal-section .highlight-text {
+            font-size: 2rem;
+            color: var(--warning);
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+        }
+
+        /* AI Family Section */
+        .ai-family {
+            background: var(--gradient-2);
+            border-radius: 24px;
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 3rem;
+            text-align: center;
+            border: 2px solid var(--secondary);
+        }
+
+        .ai-family h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-family p {
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        /* Database Section */
+        .database-section {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 24px;
+            max-width: 800px;
+            margin: 4rem auto;
+        }
+
+        .database-section .big-number {
+            font-size: 5rem;
+            font-weight: 900;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .database-section p {
+            font-size: 1.3rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--dark);
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        footer p {
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .feature-block {
+                padding: 2rem;
+            }
+
+            .summary-points {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles">
+        <script>
+            for(let i = 0; i < 20; i++) {
+                document.write(`<div class="particle" style="left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 15}s; animation-duration: ${15 + Math.random() * 10}s;"></div>`);
+            }
+        </script>
+    </div>
+https://habd.me/korasty-ai-main/frontend/
+    <nav>
+        <div class="nav-content">
+            <div class="logo">كراستي AI</div>
+            <ul class="nav-links">
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#models">النماذج</a></li>
+                <li><a href="#teachers">للمدرسين</a></li>
+                <li><a href="#science">العلم</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="greeting">السلام عليكم 👋</p>
+            <h1>كراستي AI</h1>
+            <p class="hero-subtitle">مش مجرد أداة مذاكرة</p>
+            <p class="hero-description">
+                منصة ذكاء اصطناعي متكاملة بتستخدم أقوى نماذج الذكاء الاصطناعي في العالم في مكان واحد
+            </p>
+        </div>
+    </section>
+
+    <section id="models" class="section">
+        <h2 class="section-title">النماذج المستخدمة</h2>
+        <p class="section-subtitle">يعني الطالب دايمًا بيستعمل نماذج بأعلى جودة تفكير وتحليل، مش نموذج واحد وخلاص</p>
+        
+        <div class="models-grid">
+            <div class="model-card animate-on-scroll">
+                <h3>Sonnet 4.5 Thinking Pro</h3>
+                <span class="badge">Anthropic</span>
+            </div>
+            <div class="model-card animate-on-scroll">
+                <h3>GPT Max 5.2</h3>
+                <span class="badge">OpenAI</span>
+            </div>
+            <div class="model-card animate-on-scroll">
+                <h3>O1 Pro Max High</h3>
+                <span class="badge">Advanced Reasoning</span>
+            </div>
+            <div class="model-card animate-on-scroll">
+                <h3>Gemini 3 Pro High</h3>
+                <span class="badge">Google</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section">
+        <h2 class="section-title">كراستي AI بتفهم أي حاجة</h2>
+        
+        <div class="features-container">
+            <div class="feature-block animate-on-scroll">
+                <h3><i class="fas fa-camera"></i> OCR - التعرف على النصوص</h3>
+                <p>
+                    تقدر تصور كتاب، ورقة، امتحان، أو كشكول وهي تفهمه وتشرحه عادي جدًا
+                </p>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-file-word"></i>
+                        <span>Word</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-image"></i>
+                        <span>صور</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-microphone"></i>
+                        <span>صوت</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-video"></i>
+                        <span>فيديو</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="database-section animate-on-scroll">
+                <div class="big-number">+10 TB</div>
+                <p>قاعدة بيانات ضخمة للمناهج الدراسية</p>
+                <p style="color: var(--gray); margin-top: 0.5rem;">تقدر ترفع كشكول المدرسة بتاعك أو تختار المنهج والأداة هتجيبه</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">حوّل الدرس لأي شكل يناسبك</h2>
+        <p class="section-subtitle">كراستي AI بتحول المحتوى لأشكال متعددة</p>
+        
+        <div class="transform-grid">
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-headphones"></i>
+                <h4>Audio Overview</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-play-circle"></i>
+                <h4>Video Overview</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-vr-cardboard"></i>
+                <h4>VR Video Experience</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-project-diagram"></i>
+                <h4>Mind Map</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-chart-bar"></i>
+                <h4>Reports</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-clone"></i>
+                <h4>Flash Cards</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-question-circle"></i>
+                <h4>Quizzes</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-plus-circle"></i>
+                <h4>More Questions</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-lightbulb"></i>
+                <h4>أسئلة متوقعة</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-image"></i>
+                <h4>ملخص صورة</h4>
+            </div>
+            <div class="transform-card animate-on-scroll">
+                <i class="fas fa-presentation"></i>
+                <h4>Slide Deck</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="fun-section animate-on-scroll">
+            <h3>🎉 ولو طالب زهقان؟</h3>
+            <div class="fun-options">
+                <div class="fun-option">
+                    <i class="fas fa-music"></i>
+                    <span>حوّل الدرس لـ Rap</span>
+                </div>
+                <div class="fun-option">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Game تفاعلية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="ai-family animate-on-scroll">
+            <h3><i class="fas fa-users"></i> AI Family</h3>
+            <p>
+                بتتكون جوه المتصفح عندك وتقدر تفهم أنهي طريقة بتشتغل معاك/معاكي
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="summary-section animate-on-scroll">
+            <h3>باختصار - كراستي AI</h3>
+            <div class="summary-points">
+                <div class="summary-point">
+                    <i class="fas fa-brain"></i>
+                    <span>بتفهمك</span>
+                </div>
+                <div class="summary-point">
+                    <i class="fas fa-tasks"></i>
+                    <span>بتنظمك</span>
+                </div>
+                <div class="summary-point">
+                    <i class="fas fa-book-reader"></i>
+                    <span>بتذاكر معاك</span>
+                </div>
+            </div>
+            <div class="goal-section">
+                <p>هدفها إن الطالب</p>
+                <p class="highlight-text">ما يحفظش - لكن يفهم، ويراجع</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="teachers" class="section">
+        <div class="teachers-section animate-on-scroll">
+            <h3><i class="fas fa-chalkboard-teacher"></i> إزاي كراستي AI تفيد المدرسين</h3>
+            <div class="teacher-benefits">
+                <div class="teacher-benefit">
+                    <h4><i class="fas fa-clock"></i> توفير وقت التحضير</h4>
+                    <p>بتولد ملخصات، شرائح (slide decks)، وأسئلة تلقائيًا بدل ما المدرس يقعد يحضر يدويًا</p>
+                </div>
+                <div class="teacher-benefit">
+                    <h4><i class="fas fa-user-cog"></i> تخصيص الدروس للطلبة</h4>
+                    <p>بتعمل تقارير عن مستوى كل طالب وتقترح نشاطات مناسبة لضعفه وقوته</p>
+                </div>
+                <div class="teacher-benefit">
+                    <h4><i class="fas fa-shield-alt"></i> حماية الوقت</h4>
+                    <p>بتقترح خطة مراجعة تلقائية قبل الامتحانات وتولّد flashcards وملخصات سريعة لكل طالب</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">أسئلة شائعة</h2>
+        <div class="faq-section">
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <i class="fas fa-question"></i>
+                    ممكن تعمل أسئلة متوقعة للامتحان؟
+                </div>
+                <div class="faq-answer">
+                    أيوه — بتولد أسئلة متوقعة بناءً على نمط الامتحانات السابقة وأنماط المنهج
+                </div>
+            </div>
+            <div class="faq-item animate-on-scroll">
+                <div class="faq-question">
+                    <i class="fas fa-question"></i>
+                    هل الطرق اللي المنصة بتستخدمها لها تأثير علميًا؟
+                </div>
+                <div class="faq-answer">
+                    أيوه! كل الطرق المستخدمة مبنية على أبحاث علمية مثبتة في التعليم وعلم الأعصاب
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="science" class="section">
+        <h2 class="section-title">العلم وراء كراستي AI</h2>
+        <p class="section-subtitle">طرق مثبتة علميًا لتحسين التعلم والفهم</p>
+        
+        <div class="science-section">
+            <div class="science-card animate-on-scroll">
+                <div class="science-number">1️⃣</div>
+                <h4>Active Learning (التعلّم النشط)</h4>
+                <h5>العلم بيقول:</h5>
+                <p>الطالب لما يسأل، يجاوب، يطبق، يغلط ويتصحح - المخ بيكوّن مسارات عصبية أقوى</p>
+                <h5>كراستي AI بتوفر:</h5>
+                <ul>
+                    <li>Quizzes</li>
+                    <li>Questions</li>
+                    <li>Games</li>
+                    <li>Interaction مستمر</li>
+                </ul>
+                <div class="highlight">
+                    ✅ ده مثبت إنه يزود الفهم والتحصيل مقارنة بالقراءة بس
+                </div>
+            </div>
+
+            <div class="science-card animate-on-scroll">
+                <div class="science-number">2️⃣</div>
+                <h4>Retrieval Practice (استرجاع المعلومة)</h4>
+                <p>أقوى طريقة لتثبيت المعلومة علميًا - مش إنك تعيد تقرأ، لكن إنك تحاول تفتكر</p>
+                <h5>كراستي AI بتوفر:</h5>
+                <ul>
+                    <li>Flashcards</li>
+                    <li>أسئلة متدرجة</li>
+                    <li>مراجعات ذكية</li>
+                </ul>
+                <div class="highlight">
+                    ✅ الدراسات بتقول إن الاسترجاع المتكرر يزود الاحتفاظ بالمعلومة بنسبة كبيرة جدًا مقارنة بالمذاكرة الصامتة
+                </div>
+            </div>
+
+            <div class="science-card animate-on-scroll">
+                <div class="science-number">4️⃣</div>
+                <h4>Multimodal Learning (تعدد طرق العرض)</h4>
+                <p>المخ مش بيتعلم بنفس الكفاءة من طريقة واحدة</p>
+                <h5>كراستي AI بتستخدم:</h5>
+                <ul>
+                    <li>نص</li>
+                    <li>صوت</li>
+                    <li>فيديو</li>
+                    <li>خرائط ذهنية</li>
+                    <li>VR</li>
+                    <li>صور</li>
+                </ul>
+                <div class="highlight">
+                    ✅ كل قناة بتنشّط جزء مختلف من المخ → فهم أعمق
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 كراستي AI - منصة الذكاء الاصطناعي للتعليم</p>
+    </footer>
+
+    <script>
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
