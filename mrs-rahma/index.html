@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محتوى ميس رحمه | الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a1a2e;
+            --light: #eef2ff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+            border-radius: 50%;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-top: 2rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            margin-top: auto;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card:hover .card-btn {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(118, 75, 162, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <span style="left: 10%; width: 80px; height: 80px; animation-delay: 0s;"></span>
+        <span style="left: 20%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s;"></span>
+        <span style="left: 70%; width: 20px; height: 20px; animation-delay: 4s;"></span>
+        <span style="left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s;"></span>
+        <span style="left: 65%; width: 20px; height: 20px; animation-delay: 0s;"></span>
+        <span style="left: 75%; width: 110px; height: 110px; animation-delay: 3s;"></span>
+        <span style="left: 35%; width: 150px; height: 150px; animation-delay: 7s;"></span>
+        <span style="left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s;"></span>
+        <span style="left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s;"></span>
+        <span style="left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s;"></span>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>محتوى ميس رحمه</h1>
+        </header>
+
+        <div class="content-grid">
+            <!-- Card 1: Science Review -->
+            <a href="mrsrhama-1.html" class="card">
+                <div class="card-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h2>مراجعة ساينس</h2>
+                <p>2025/12/30 , أول مراجعة ,المعاصر الأول والثاني , المحتوى
+عملي + نظري</p>
+                <div class="card-btn">التسجيل 📹</div>
+            </a>
+
+            <!-- Placeholder for future content -->
+            <div class="card" style="opacity: 0.7; cursor: default;">
+                <div class="card-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h2>قريباً</h2>
+                <p>انتظروا المزيد من المراجعات والملفات التعليمية قريباً</p>
+                <div class="card-btn" style="background: #444;">قريباً</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
